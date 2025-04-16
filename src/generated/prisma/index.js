@@ -162,7 +162,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/cardu/Documentos/Cursos/Frontend-Masters/product-api/src/generated/prisma",
+      "value": "/home/juan/Documentos/Cursos/frontend-masters/product-api/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -171,12 +171,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-1.1.x",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/cardu/Documentos/Cursos/Frontend-Masters/product-api/prisma/schema.prisma",
+    "sourceFilePath": "/home/juan/Documentos/Cursos/frontend-masters/product-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -190,16 +190,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://product_api_5rds_user:eg3mzE8ynMSfSso3dfo6DXxbt6j6pHjg@dpg-cvv5fjogjchc73c3pkag-a.virginia-postgres.render.com/product_api_5rds"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String    @unique\n  password String\n  products Product[]\n}\n\nmodel Product {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  name        String   @db.VarChar(255)\n  belongsToId String\n  belongsTo   User     @relation(fields: [belongsToId], references: [id])\n  updates     Update[]\n}\n\nenum UPDATE_STATUS {\n  IN_PROGRESS\n  SHIPPED\n  DEPRECATED\n}\n\nmodel Update {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n  updatedAt DateTime\n\n  title   String\n  body    String\n  status  UPDATE_STATUS @default(IN_PROGRESS)\n  version String?\n  asset   String?\n\n  productId    String\n  product      Product       @relation(fields: [productId], references: [id])\n  updatePoints UpdatePoint[]\n}\n\nmodel UpdatePoint {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n  updatedAt DateTime\n\n  name        String @db.VarChar(255)\n  description String\n\n  updateId String\n  update   Update @relation(fields: [updateId], references: [id])\n}\n",
-  "inlineSchemaHash": "457526a283a6d454aedc2c426dc8bbc275cd852af433ac648ec30f6d4468b341",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String    @id @default(uuid())\n  createdAt DateTime  @default(now())\n  username  String    @unique\n  password  String\n  products  Product[]\n}\n\nmodel Product {\n  id          String   @id @default(uuid())\n  createdAt   DateTime @default(now())\n  name        String   @db.VarChar(255)\n  belongsToId String\n  belongsTo   User     @relation(fields: [belongsToId], references: [id])\n  updates     Update[]\n}\n\nmodel Update {\n  id           String        @id @default(uuid())\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime\n  title        String\n  body         String\n  status       UPDATE_STATUS @default(IN_PROGRESS)\n  version      String?\n  asset        String?\n  productId    String\n  product      Product       @relation(fields: [productId], references: [id])\n  updatePoints UpdatePoint[]\n}\n\nmodel UpdatePoint {\n  id          String   @id @default(uuid())\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime\n  name        String   @db.VarChar(255)\n  description String\n  updateId    String\n  update      Update   @relation(fields: [updateId], references: [id])\n}\n\nenum UPDATE_STATUS {\n  IN_PROGRESS\n  SHIPPED\n  DEPRECATED\n}\n",
+  "inlineSchemaHash": "ec2fde15e1fd8e4361702c8718b7ca77f9be5ad2735c8cc412485d86c5cd4cfd",
   "copyEngine": true
 }
 
@@ -238,8 +239,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-1.1.x.so.node");
-path.join(process.cwd(), "src/generated/prisma/libquery_engine-debian-openssl-1.1.x.so.node")
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")
