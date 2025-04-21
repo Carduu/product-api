@@ -1,11 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #F5F5F5; /* Fondo fuera de la plantilla */
+    }
+    .container {
+      max-width: 650px;
+      margin: 20px auto;
+      background-color: #FFFFFF; /* Fondo del cuerpo */
+      border: 1px solid #E0E0E0;
+      border-radius: 0px;
+      overflow: hidden;
+    }
+    .header {
+      background-color: #103569; /* Color del header */
+      color: #FFFFFF; /* Texto del header */
+      text-align: center;
+      padding: 20px;
+    }
+    .header img {
+      max-width: 300px;
+      height: auto;
+    }
+    .body {
+      padding: 20px;
+      color: #000000; /* Texto del cuerpo */
+      line-height: 1.5;
+    }
+    .body h1 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #103569;
+    }
+    .body p {
+      margin: 10px 0;
+    }
+    .footer {
+      background-color: #0A1D37; /* Color del footer */
+      color: #CBCBCB; /* Texto del footer */
+      text-align: center;
+      padding: 15px;
+      font-size: 12px; 
+    }
+    .footer-link {
+            color: #FFFFFF;
+    }
+    .button {
+      display: inline-block;
+      background-color: #4067EF;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 0px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
-  <h2>Hello from Express!!</h2>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://qualitapps.com/wp-content/uploads/2023/02/102.png" alt="Express">      
+    </div>
+    
+    <!-- Body -->
+    <div class="body">
+      <h1>Hello!</h1>
+      <p>
+        This is a Node.js and Express project! </p>
+      </p>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; <span id="year"></span>  - All rights reserved - 
+        <a href="https://github.com/Carduu/product-api" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Project</a>            
+      </p>
+    </div>
+  </div>
 </body>
 </html>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
