@@ -1,16 +1,20 @@
 import { Router } from "express";
 import { body, check, oneOf } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
+import {
+  createProduct,
+  deleteProduct,
+  getOneProduct,
+  getProducts,
+} from "./handlers/product";
 
 const router = Router();
 
 /**
  * Product
  */
-router.get("/product", (req, res) => {
-  res.json({ message: "hello" });
-});
-router.get("/product/:id", () => {});
+router.get("/product", getProducts);
+router.get("/product/:id", getOneProduct);
 router.put(
   "/product/:id",
   body("name").isString(),
@@ -21,9 +25,9 @@ router.post(
   "/product",
   body("name").isString(),
   handleInputErrors,
-  (req, res) => {}
+  createProduct
 );
-router.delete("/product/:id", () => {});
+router.delete("/product/:id", deleteProduct);
 
 /**
  * Update
@@ -34,10 +38,11 @@ router.put(
   "/update/:id",
   body("title").optional(),
   body("body").optional(),
+  // body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']).optional(),
   oneOf([
-    check("status").equals("IN_PROGRESS"),
-    check("status").equals("SHIPPED"),
-    check("status").equals("DEPRECATED"),
+    check("status").equals("IN_PROGRESS").optional(),
+    check("status").equals("SHIPPED").optional(),
+    check("status").equals("DEPRECATED").optional(),
   ]),
   body("version").optional(),
   body("productId").isString(),

@@ -1,7 +1,7 @@
 import prisma from "../db";
 
 // Get all
-export const getProduct = async (req, res) => {
+export const getProducts = async (req, res) => {
   const user = await prisma.user.findUnique({
     where: {
       id: req.user.id,
@@ -23,7 +23,7 @@ export const getOneProduct = async (req, res) => {
       id: id,
       belongsToId: req.user.id,
 
-      //    with index
+      //    with @@index
       // id_belongsToId: {
       //   id: req.params.id,
       //   belongsToId: req.user.id
@@ -52,7 +52,7 @@ export const updateProduct = async (req, res) => {
     where: {
       id: req.params.id,
 
-      //    with index
+      //    with @@index
       // id_belongsToId: {
       //   id: req.params.id,
       //   belongsToId: req.user.id
@@ -67,17 +67,21 @@ export const updateProduct = async (req, res) => {
 };
 
 // Delete one
-export const deteleProduct = async (req, res) => {
-  const deleted = await prisma.product.delete({
-    where: {
-      id: req.params.id,
-      belongsToId: req.user.id,
+export const deleteProduct = async (req, res) => {
+  try {
+    const deleted = await prisma.product.delete({
+      where: {
+        id: req.params.id,
+        belongsToId: req.user.id,
 
-      //    with index
-      // id_belongsToId: {
-      //   id: req.params.id,
-      //   belongsToId: req.user.id
-      // }
-    },
-  });
+        //    with @@index
+        // id_belongsToId: {
+        //   id: req.params.id,
+        //   belongsToId: req.user.id
+        // }
+      },
+    });
+  } catch (error) {
+    // console.log(error) res.status(403) res.json({error: error})
+  }
 };
