@@ -84,4 +84,24 @@ router.post(
 );
 router.delete("/updatepoint/:id", () => {});
 
+// Error handling
+router.use((err, req, res, next) => {
+  if (err.type === "auth") {
+    res.status(401);
+    res.json({ message: "Unathorized" });
+  } else if (err.type === "input") {
+    res.status(400);
+    res.json({ message: "Invalid input" });
+  } else {
+    res.status(500);
+    res.json({ message: "Ooops, thats on us" });
+  }
+});
+
 export default router;
+
+// uncaught error
+process.on("uncaughtException", () => {});
+
+// async error
+process.on("unhandledRejection", () => {});
