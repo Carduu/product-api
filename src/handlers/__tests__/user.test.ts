@@ -1,7 +1,15 @@
-describe("user handler", () => {
-  it("should do a thing", async () => {
-    // .,...
+import * as user from "../user";
 
-    expect("something").toBe("something");
+describe("user handler", () => {
+  it("should create a new user", async () => {
+    const req = { body: { username: "hello", password: "hi" } };
+    const res = {
+      json({ token }) {
+        console.log(token);
+        expect(token).toBeTruthy();
+      },
+    };
+
+    await user.createNewUser(req, res, () => {});
   });
 });
